@@ -231,12 +231,26 @@ namespace DepartmentsEmployees.Data
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-
                     /*
-                     * TODO: Complete this method
-                     */
+                    * TODID!!!!!: Complete this method
+                    */
+                    cmd.CommandText = "SELECT Id, FirstName, LastName, DepartmentId FROM Employee WHERE Id = @id";
+                    cmd.Parameters.Add(new SqlParameter("@id", id));
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    return null;
+                    Employee employee = null;
+                    if (reader.Read())
+                    {
+                        employee = new Employee
+                        {
+                            Id = id
+                        };
+                    }
+
+                    reader.Close();
+                   
+
+                    return employee;
                 }
             }
         }
@@ -253,13 +267,15 @@ namespace DepartmentsEmployees.Data
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-
                     /*
-                     * TODO: Complete this method
+                     * TODID!!!!!!: Complete this method
                      *  Look at GetAllEmployeesWithDepartmentByDepartmentId(int departmentId) for inspiration.
                      */
+                     cmd.CommandText = @"SELECT e.Id, e.FirstName, e.LastName, e.DepartmentId, d.DeptName
+                                            FROM Employee e INNER JOIN department d ON e.DepartmentID = d.Id";
+                                            
 
-                    return null;
+                    return employee;
                 }
             }
         }
@@ -322,6 +338,22 @@ namespace DepartmentsEmployees.Data
              * TODO: Complete this method by using an INSERT statement with SQL
              *  Remember to use SqlParameters!
              */
+            using(SqlConnection conn = Connection)
+            {
+                conn.open();
+                using (SqlCommand cmd = conn.CreateCommand());
+                {
+                    cmd.CommandText = @"INSERT INTO Employee (Id, FirstName, LastName, DepartmentId) 
+                                        VALUES (@id, @firstName, @lastname, @departmentId)";
+                    cmd.Parameters.Add();
+
+                }
+            }
+
+
+            
+
+
 
         }
 
